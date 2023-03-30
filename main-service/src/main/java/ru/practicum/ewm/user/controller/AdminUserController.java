@@ -21,8 +21,8 @@ public class AdminUserController {
 
     @GetMapping
     public List<UserDto> find(@RequestParam(name = "ids") List<Long> ids,
-                                  @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
-                                  @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
+                              @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
+                              @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
         return adminUserService.find(ids, from, size);
     }
 
@@ -37,6 +37,4 @@ public class AdminUserController {
     public void delete(@PathVariable Long userId) {
         adminUserService.delete(userId);
     }
-
-
 }

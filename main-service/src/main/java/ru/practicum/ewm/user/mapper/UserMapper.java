@@ -6,8 +6,8 @@ import ru.practicum.ewm.user.model.User;
 public class UserMapper {
     public static UserDto toUserDto(User user) {
         return new UserDto(user.getId(),
-                        user.getEmail(),
-                        user.getName());
+                user.getEmail(),
+                user.getName());
     }
 
     public static User toUser(UserDto userDto) {
