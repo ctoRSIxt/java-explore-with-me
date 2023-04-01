@@ -17,13 +17,13 @@ public class Event {
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 120)
     private String title;
 
-    @Column(nullable = false, length = 1000)
+    @Column(nullable = false, length = 2000)
     private String annotation;
 
-    @Column(nullable = false, length = 5000)
+    @Column(nullable = false, length = 7000)
     private String description;
 
     @Embedded
@@ -48,7 +48,7 @@ public class Event {
     private Integer confirmedRequests = 0;
 
     @Column(nullable = false)
-    private Long views = 0l;
+    private Long views = 0L;
 
     @ManyToOne(optional = false)
     private User initiator;
