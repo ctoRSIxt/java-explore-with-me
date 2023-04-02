@@ -17,20 +17,19 @@ import javax.validation.Valid;
 public class AdminCompilationController {
     private final AdminCompilationService adminCompilationService;
 
-
     @PostMapping
-    public CompilationDto addCompilation(@RequestBody @Valid NewCompilationDto newCompilationDto) {
+    public CompilationDto create(@RequestBody @Valid NewCompilationDto newCompilationDto) {
         return adminCompilationService.create(newCompilationDto);
     }
 
     @DeleteMapping("/{compId}")
-    public void deleteCompilation(@PathVariable Long compId) {
+    public void delete(@PathVariable Long compId) {
         adminCompilationService.delete(compId);
     }
 
     @PatchMapping("/{compId}")
-    public CompilationDto updateCompilation(@PathVariable Long compId,
-                                            @RequestBody NewCompilationDto newCompilationDto) {
+    public CompilationDto update(@PathVariable Long compId,
+                                 @RequestBody @Valid NewCompilationDto newCompilationDto) {
         return adminCompilationService.update(compId, newCompilationDto);
     }
 }

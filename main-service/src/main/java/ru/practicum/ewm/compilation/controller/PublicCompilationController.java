@@ -18,7 +18,7 @@ public class PublicCompilationController {
     private final PublicCompilationService publicCompilationService;
 
     @GetMapping
-    public List<CompilationDto> getCompilations(@RequestParam(required = false) Boolean pinned,
+    public List<CompilationDto> find(@RequestParam(required = false) Boolean pinned,
                                                 @RequestParam(defaultValue = "0") @Min(0) Integer from,
                                                 @RequestParam(defaultValue = "10") @Positive Integer size) {
         return publicCompilationService.find(pinned, from, size);
@@ -26,7 +26,7 @@ public class PublicCompilationController {
 
 
     @GetMapping("/{compId}")
-    public CompilationDto getCompilationById(@PathVariable long compId) {
+    public CompilationDto findById(@PathVariable long compId) {
         return publicCompilationService.findById(compId);
     }
 }
