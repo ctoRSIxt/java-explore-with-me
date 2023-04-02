@@ -1,6 +1,9 @@
 package ru.practicum.ewm.event.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.event.enums.State;
 import ru.practicum.ewm.event.location.Location;
@@ -9,6 +12,10 @@ import ru.practicum.ewm.user.model.User;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "events")
 public class Event {
@@ -60,5 +67,6 @@ public class Event {
     private LocalDateTime publishedOn;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private State state;
 }

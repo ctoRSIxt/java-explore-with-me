@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.EventShortDto;
 import ru.practicum.ewm.event.dto.NewEventDto;
+import ru.practicum.ewm.request.dto.EventRequestStatusUpdateRequest;
+import ru.practicum.ewm.request.dto.EventRequestStatusUpdateResult;
+import ru.practicum.ewm.request.dto.RequestDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -44,7 +47,24 @@ public class PrivateEventController {
     }
 
     @PatchMapping("{userId}/events/{eventId}")
-    public
+    public updateEvent(@PathVariable @Positive Long userId,
+                       @PathVariable @Positive Long eventId,
+                       @Valid @RequestBody NewEventDto newEventDto) {
 
+        return eventService.updateEvent(userId, eventId, newEventDto);
+    }
 
+    @GetMapping("{userId}/events/{eventId}/requests")
+    public List<RequestDto> findUserRequests(@PathVariable @Positive Long userId,
+                                             @PathVariable @Positive Long eventId) {
+        return eventService.findUserRequests(userId, eventId);
+    }
+
+    @PatchMapping("{userId}/events/{eventId}/requests")
+    public EventRequestStatusUpdateResult changeRequestStatus(@PathVariable @Positive Long userId,
+                                                              @PathVariable @Positive Long eventId,
+                                                              @RequestBody EventRequestStatusUpdateRequest
+                                                                          updateRequestStatus) {
+        return eventService.changeRequestStatus(userId, eventId, updateRequestStatus);
+    }
 }
