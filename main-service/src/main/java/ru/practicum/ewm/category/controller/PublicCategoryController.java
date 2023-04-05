@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.category.dto.CategoryDto;
+import ru.practicum.ewm.category.service.PublicCategoryService;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
@@ -23,8 +24,8 @@ public class PublicCategoryController {
         return publicCategoryService.find(from, size);
     }
 
-    @GetMapping("/{compId}")
-    public CategoryDto findById(@PathVariable long compId) {
-        return publicCategoryService.findById(compId);
+    @GetMapping("/{catId}")
+    public CategoryDto findById(@PathVariable Long catId) {
+        return publicCategoryService.findById(catId);
     }
 }

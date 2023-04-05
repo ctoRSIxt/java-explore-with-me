@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.client.StatsClient;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.EventShortDto;
+import ru.practicum.ewm.event.service.PublicEventService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Min;
@@ -35,7 +36,7 @@ public class PublicEventController {
                                          @RequestParam(defaultValue = "10") @Positive Integer size,
                                          HttpServletRequest httpServletRequest) {
         statsClient.saveEndpointHit(httpServletRequest);
-        return publicEventsService.findEvents(text, categories, paid,
+        return publicEventService.findEvents(text, categories, paid,
                                               rangeStart, rangeEnd, onlyAvailable,
                                               sort, from, size);
     }
@@ -44,6 +45,6 @@ public class PublicEventController {
     public EventFullDto findEventById(@PathVariable Long id,
                                       HttpServletRequest httpServletRequest) {
         statsClient.saveEndpointHit(httpServletRequest);
-        return publicEventsService.findEventById(id);
+        return publicEventService.findEventById(id);
     }
 }
