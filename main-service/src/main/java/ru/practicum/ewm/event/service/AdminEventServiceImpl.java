@@ -28,13 +28,13 @@ import java.util.stream.Collectors;
 public class AdminEventServiceImpl implements AdminEventService {
 
     private final static DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private final AdminEventRepository adminEventRepository;
+    private final AdminEventRepository eventRepository;
     private final CategoryRepository categoryRepository;
 
     @Override
     public EventFullDto updateEvent(Long eventId, UpdateEventAdminRequest update) {
 
-        Event event = adminEventRepository.findById(eventId)
+        Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("The required object was not found.",
                         "Event with id=" + eventId + " was not found"));
 
@@ -118,7 +118,7 @@ public class AdminEventServiceImpl implements AdminEventService {
         }
 
 
-        return EventMapper.toEventFullDto(adminEventRepository.save(event));
+        return EventMapper.toEventFullDto(eventRepository.save(event));
     }
 
     @Override
@@ -135,7 +135,7 @@ public class AdminEventServiceImpl implements AdminEventService {
         }
 
 
-        Page<Event> events = adminEventRepository.findByParams(
+        Page<Event> events = eventRepository.findByParamsAdmin(
                 users, State.validateState(states), categories, start, end,
                 PageRequest.of(from / size, size, Sort.by("id").descending()));
 

@@ -14,7 +14,6 @@ import ru.practicum.ewm.event.dto.NewEventDto;
 import ru.practicum.ewm.event.dto.UpdateEventUserRequest;
 import ru.practicum.ewm.event.enums.State;
 import ru.practicum.ewm.event.enums.StateAction;
-import ru.practicum.ewm.event.location.Location;
 import ru.practicum.ewm.event.mapper.EventMapper;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.event.repository.PrivateEventRepository;
@@ -39,7 +38,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PrivateEventServiceImpl implements PrivateEventService {
 
-    private final PrivateEventRepository privateEventRepository;
+    private final PrivateEventRepository eventRepository;
     private final CategoryRepository categoryRepository;
     private final PrivateUserRepository privateUserRepository;
     private final RequestRepository requestRepository;
@@ -73,16 +72,16 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         event.setCreateOn(LocalDateTime.now());
         event.setState(State.PENDING);
 
-        return EventMapper.toEventShortDto(privateEventRepository.save(event));
+        return EventMapper.toEventShortDto(eventRepository.save(event));
 
     }
 
     @Override
     public List<EventShortDto> findAll(Long userId, Integer from, Integer size) {
 
-        Page<Event> events = privateEventRepository.findAllByInitiatorId(userId,
+        Page<Event> events = eventRepository.findAllByInitiatorId(userId,
                 PageRequest.of(from / size, size,
-                Sort.by("id").descending()));
+                        Sort.by("id").descending()));
 
         return events.stream()
                 .map(EventMapper::toEventShortDto)
@@ -91,7 +90,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
 
     private Event findEvent(Long userId, Long eventId) {
 
-        Event event = privateEventRepository.findById(eventId)
+        Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("The required object was not found.",
                         "Event with id=" + eventId + " was not found"));
 
@@ -169,7 +168,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
             }
         }
 
-        return EventMapper.toEventFullDto(privateEventRepository.save(event));
+        return EventMapper.toEventFullDto(eventRepository.save(event));
     }
 
     @Override
@@ -183,7 +182,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
 
     @Override
     public EventRequestStatusUpdateResult updateRequestStatus(Long userId, Long eventId,
-                               EventRequestStatusUpdateRequest requestStatusUpdateRequest) {
+                                                              EventRequestStatusUpdateRequest requestStatusUpdateRequest) {
         Event event = findEvent(userId, eventId);
         if (event.getConfirmedRequests() >= event.getParticipantLimit()) {
             throw new ConditionsNotMetException("For the requested operation the conditions are not met.",
