@@ -26,7 +26,7 @@ public class EventMapper {
                 event.getConfirmedRequests(),
                 event.getViews(),
                 UserMapper.toUserShortDto(event.getInitiator()),
-                event.getCreateOn(),
+                event.getCreatedOn(),
                 event.getPublishedOn(),
                 event.getState());
     }

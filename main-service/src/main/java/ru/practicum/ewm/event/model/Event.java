@@ -61,7 +61,7 @@ public class Event {
     private User initiator;
 
     @Column(nullable = false)
-    private LocalDateTime createOn;
+    private LocalDateTime createdOn;
 
     private LocalDateTime publishedOn;
 

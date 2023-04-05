@@ -1,6 +1,7 @@
 package ru.practicum.ewm.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.dto.EndpointHitDto;
 import ru.practicum.ewm.dto.ViewStatsDto;
@@ -14,11 +15,13 @@ import java.util.List;
 public class StatsController {
     private final StatsService statsService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/hit")
     public EndpointHitDto create(@RequestBody EndpointHitDto endpointHitDto) {
         return statsService.create(endpointHitDto);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/stats")
     public List<ViewStatsDto> find(@RequestParam LocalDateTime start,
                                    @RequestParam LocalDateTime end,

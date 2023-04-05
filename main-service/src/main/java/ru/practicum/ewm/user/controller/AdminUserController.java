@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.user.dto.UserDto;
 import ru.practicum.ewm.user.service.AdminUserService;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
@@ -19,6 +20,7 @@ public class AdminUserController {
     private final AdminUserService adminUserService;
 
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<UserDto> find(@RequestParam(name = "ids") List<Long> ids,
                               @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
@@ -28,12 +30,12 @@ public class AdminUserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public UserDto create(@RequestBody UserDto user) {
+    public UserDto create(@RequestBody @Valid UserDto user) {
         return adminUserService.create(user);
     }
 
-    @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{userId}")
     public void delete(@PathVariable Long userId) {
         adminUserService.delete(userId);
     }

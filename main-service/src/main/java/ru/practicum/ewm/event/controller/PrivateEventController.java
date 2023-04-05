@@ -3,6 +3,7 @@ package ru.practicum.ewm.event.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.event.dto.EventFullDto;
@@ -26,12 +27,14 @@ import java.util.List;
 public class PrivateEventController {
     private final PrivateEventService privateEventService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public EventShortDto create(@PathVariable Long userId,
+    public EventFullDto create(@PathVariable Long userId,
                                 @Valid @RequestBody NewEventDto newEventDto) {
         return privateEventService.create(userId, newEventDto);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<EventShortDto> findAll(@PathVariable Long userId,
                                        @RequestParam(defaultValue = "0")
@@ -41,12 +44,14 @@ public class PrivateEventController {
         return privateEventService.findAll(userId, from, size);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{eventId}")
     public EventFullDto find(@PathVariable Long userId,
                              @PathVariable Long eventId) {
         return privateEventService.find(userId, eventId);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{eventId}")
     public EventFullDto updateEvent(@PathVariable Long userId,
                                     @PathVariable Long eventId,
@@ -55,12 +60,14 @@ public class PrivateEventController {
         return privateEventService.update(userId, eventId, newEventDto);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{eventId}/requests")
     public List<RequestDto> findRequests(@PathVariable Long userId,
                                          @PathVariable Long eventId) {
         return privateEventService.findRequests(userId, eventId);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{eventId}/requests")
     public EventRequestStatusUpdateResult updateRequestStatus(@PathVariable @Positive Long userId,
                                                               @PathVariable @Positive Long eventId,

@@ -3,6 +3,7 @@ package ru.practicum.ewm.event.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.client.StatsClient;
@@ -24,6 +25,7 @@ public class PublicEventController {
     private final StatsClient statsClient;
     private final PublicEventService publicEventService;
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<EventShortDto> findEvents(@RequestParam(required = false) String text,
                                          @RequestParam(required = false) List<Long> categories,
@@ -41,6 +43,7 @@ public class PublicEventController {
                                               sort, from, size);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public EventFullDto findEventById(@PathVariable Long id,
                                       HttpServletRequest httpServletRequest) {

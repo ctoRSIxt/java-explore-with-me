@@ -22,6 +22,9 @@ public enum State {
     }
 
     public static List<State> validateState(List<String> stateString) {
+        if (stateString == null) {
+            return null;
+        }
         return stateString.stream()
                 .map(State::validateState)
                 .collect(Collectors.toList());

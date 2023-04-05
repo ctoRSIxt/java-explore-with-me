@@ -21,18 +21,18 @@ CREATE TABLE IF NOT EXISTS events (
     description VARCHAR(7000) NOT NULL,
     lat REAL NOT NULL,
     lon REAL NOT NULL,
-    eventDate TIMESTAMP NOT NULL,
+    event_date TIMESTAMP NOT NULL,
     paid BOOLEAN DEFAULT FALSE,
 --
     category_id BIGINT REFERENCES categories(id),
-    requestModeration BOOLEAN DEFAULT TRUE,
-    participantLimit INTEGER DEFAULT 0,
-    confirmedRequests INTEGER DEFAULT 0,
+    request_moderation BOOLEAN DEFAULT TRUE,
+    participant_limit INTEGER DEFAULT 0,
+    confirmed_requests INTEGER DEFAULT 0,
     views BIGINT DEFAULT 0,
 --
-    initiator BIGINT REFERENCES users(id),
-    createOn TIMESTAMP NOT NULL,
-    publishedOn TIMESTAMP,
+    initiator_id BIGINT REFERENCES users(id),
+    created_on TIMESTAMP NOT NULL,
+    published_on TIMESTAMP,
     state VARCHAR(64)
 );
 

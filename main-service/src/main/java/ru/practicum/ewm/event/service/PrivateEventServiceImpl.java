@@ -44,7 +44,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     private final RequestRepository requestRepository;
 
     @Override
-    public EventShortDto create(Long userId, NewEventDto newEventDto) {
+    public EventFullDto create(Long userId, NewEventDto newEventDto) {
 
         Event event = new Event();
 
@@ -69,10 +69,10 @@ public class PrivateEventServiceImpl implements PrivateEventService {
                         "User with id=" + newEventDto.getCategory() + " was not found"));
 
         event.setInitiator(user);
-        event.setCreateOn(LocalDateTime.now());
+        event.setCreatedOn(LocalDateTime.now());
         event.setState(State.PENDING);
 
-        return EventMapper.toEventShortDto(eventRepository.save(event));
+        return EventMapper.toEventFullDto(eventRepository.save(event));
 
     }
 

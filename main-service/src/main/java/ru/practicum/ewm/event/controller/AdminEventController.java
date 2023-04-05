@@ -3,6 +3,7 @@ package ru.practicum.ewm.event.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.event.dto.EventFullDto;
@@ -20,6 +21,7 @@ import java.util.List;
 public class AdminEventController {
     private final AdminEventService adminEventService;
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<EventFullDto> findEvents(@RequestParam(required = false) List<Long> users,
                                         @RequestParam(required = false) List<String> states,
@@ -32,6 +34,7 @@ public class AdminEventController {
                                             rangeStart, rangeEnd, from, size);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{eventId}")
     public EventFullDto updateEvent(@PathVariable Long eventId,
                                     @RequestBody UpdateEventAdminRequest update) {

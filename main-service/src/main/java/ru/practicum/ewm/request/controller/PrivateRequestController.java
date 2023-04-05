@@ -17,17 +17,20 @@ import java.util.List;
 public class PrivateRequestController {
     private final PrivateRequestService privateRequestService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public RequestDto create(@PathVariable Long userId,
                              @RequestParam Long eventId) {
         return privateRequestService.create(userId, eventId);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<RequestDto> findAll(@PathVariable Long userId) {
         return privateRequestService.findAll(userId);
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{requestId}/cancel")
     public RequestDto cancelRequest(@PathVariable Long userId,
                                     @PathVariable Long requestId) {

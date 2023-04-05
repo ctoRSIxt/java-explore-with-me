@@ -11,7 +11,7 @@ import ru.practicum.ewm.request.dto.RequestDto;
 import java.util.List;
 
 public interface PrivateEventService {
-    EventShortDto create(Long userId, NewEventDto newEventDto);
+    EventFullDto create(Long userId, NewEventDto newEventDto);
 
     List<EventShortDto> findAll(Long userId, Integer from, Integer size);
 

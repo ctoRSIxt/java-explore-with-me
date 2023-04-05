@@ -27,7 +27,7 @@ public class NewEventDto {
     private String annotation;
 
     @NotNull(message = "Description cannot be null")
-    @Size(min = 3, max = 120, message = "Description length should be min = 20, max = 7000")
+    @Size(min = 20, max = 7000 , message = "Description length should be min = 20, max = 7000")
     private String description;
 
     @NotNull(message = "Location cannot be null")

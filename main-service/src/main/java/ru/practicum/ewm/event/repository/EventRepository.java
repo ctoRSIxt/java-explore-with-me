@@ -37,7 +37,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Page<Event> findAllByInitiatorId(Long initiatorId, Pageable pageable);
 
     @Query(" select e from Event e " +
-            "where e.initiator in :users " +
+            "where e.initiator.id in :users " +
             "and e.state in :states " +
             "and e.category.id in :categories " +
             "and e.eventDate between :rangeStart and :rangeEnd")

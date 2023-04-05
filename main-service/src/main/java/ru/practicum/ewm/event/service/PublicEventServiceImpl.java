@@ -31,13 +31,22 @@ public class PublicEventServiceImpl implements PublicEventService {
                                           String rangeStart, String rangeEnd, Boolean onlyAvailable,
                                           String sort, Integer from, Integer size) {
 
-        LocalDateTime start = LocalDateTime.parse(rangeStart, TIME_FORMATTER);
-        LocalDateTime end = LocalDateTime.parse(rangeEnd, TIME_FORMATTER);
+        LocalDateTime start = null;
+        if (rangeStart != null) {
+            start = LocalDateTime.parse(rangeStart, TIME_FORMATTER);
+        }
 
-        if (start.isAfter(end)) {
-            throw new CustomValidationException(
-                    "rangeStart is before rangeEnd",
-                    "Incorrectly made request.");
+        LocalDateTime end = null;
+        if (rangeEnd != null) {
+            end = LocalDateTime.parse(rangeEnd, TIME_FORMATTER);
+        }
+
+        if (start != null && end != null) {
+            if (start.isAfter(end)) {
+                throw new CustomValidationException(
+                        "rangeStart is before rangeEnd",
+                        "Incorrectly made request.");
+            }
         }
 
 
