@@ -27,7 +27,7 @@ public class AdminCategoryController {
         adminCategoryService.delete(catId);
     }
 
-    @PatchMapping("/{catId")
+    @PatchMapping("/{catId}")
     public CategoryDto update(@PathVariable Long catId,
                               @RequestBody @Valid NewCategoryDto newCategoryDto) {
         return adminCategoryService.update(catId, newCategoryDto);
