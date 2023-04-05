@@ -63,7 +63,6 @@ public class Event {
     @Column(nullable = false)
     private LocalDateTime createOn;
 
-    @Column(nullable = false)
     private LocalDateTime publishedOn;
 
     @Enumerated(EnumType.STRING)

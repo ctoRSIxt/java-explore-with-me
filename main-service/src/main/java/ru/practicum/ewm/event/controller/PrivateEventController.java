@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.EventShortDto;
 import ru.practicum.ewm.event.dto.NewEventDto;
+import ru.practicum.ewm.event.dto.UpdateEventUserRequest;
+import ru.practicum.ewm.event.service.PrivateEventService;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateRequest;
 import ru.practicum.ewm.request.dto.EventRequestStatusUpdateResult;
 import ru.practicum.ewm.request.dto.RequestDto;
@@ -32,10 +34,10 @@ public class PrivateEventController {
 
     @GetMapping
     public List<EventShortDto> findAll(@PathVariable Long userId,
-                                                 @RequestParam(defaultValue = "0")
-                                                 @Min(0) Integer from,
-                                                 @RequestParam(defaultValue = "10")
-                                                 @Min(1) Integer size) {
+                                       @RequestParam(defaultValue = "0")
+                                       @Min(0) Integer from,
+                                       @RequestParam(defaultValue = "10")
+                                       @Min(1) Integer size) {
         return privateEventService.findAll(userId, from, size);
     }
 
@@ -48,7 +50,7 @@ public class PrivateEventController {
     @PatchMapping("/{eventId}")
     public EventFullDto updateEvent(@PathVariable Long userId,
                                     @PathVariable Long eventId,
-                                    @Valid @RequestBody NewEventDto newEventDto) {
+                                    @Valid @RequestBody UpdateEventUserRequest newEventDto) {
 
         return privateEventService.update(userId, eventId, newEventDto);
     }
@@ -63,7 +65,7 @@ public class PrivateEventController {
     public EventRequestStatusUpdateResult updateRequestStatus(@PathVariable @Positive Long userId,
                                                               @PathVariable @Positive Long eventId,
                                                               @RequestBody EventRequestStatusUpdateRequest
-                                                                          requestStatusUpdateRequest) {
+                                                                      requestStatusUpdateRequest) {
         return privateEventService.updateRequestStatus(userId, eventId, requestStatusUpdateRequest);
     }
 }

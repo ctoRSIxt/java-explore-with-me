@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.event.dto.EventFullDto;
+import ru.practicum.ewm.event.dto.UpdateEventAdminRequest;
+import ru.practicum.ewm.event.service.AdminEventService;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;

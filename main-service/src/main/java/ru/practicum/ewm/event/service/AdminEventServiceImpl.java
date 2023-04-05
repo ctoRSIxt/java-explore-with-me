@@ -14,33 +14,29 @@ import ru.practicum.ewm.event.enums.StateAction;
 import ru.practicum.ewm.event.mapper.EventMapper;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.event.repository.AdminEventRepository;
-import ru.practicum.ewm.exception.CustomValidationException;
 import ru.practicum.ewm.exception.ConditionsNotMetException;
+import ru.practicum.ewm.exception.CustomValidationException;
 import ru.practicum.ewm.exception.NotFoundException;
 
-import javax.xml.bind.ValidationException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.data.jpa.domain.Specification.where;
-
 @Service
 @RequiredArgsConstructor
 public class AdminEventServiceImpl implements AdminEventService {
 
+    private final static DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final AdminEventRepository adminEventRepository;
     private final CategoryRepository categoryRepository;
-
-    private final static DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public EventFullDto updateEvent(Long eventId, UpdateEventAdminRequest update) {
 
         Event event = adminEventRepository.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("The required object was not found.",
-                                                         "Event with id=" + eventId + " was not found"));
+                        "Event with id=" + eventId + " was not found"));
 
 
         if (update.getTitle() != null && !update.getTitle().isBlank()) {
@@ -127,7 +123,7 @@ public class AdminEventServiceImpl implements AdminEventService {
 
     @Override
     public List<EventFullDto> findEvents(List<Long> users, List<String> states, List<Long> categories,
-                                  String rangeStart, String rangeEnd, Integer from, Integer size) {
+                                         String rangeStart, String rangeEnd, Integer from, Integer size) {
 
         LocalDateTime start = LocalDateTime.parse(rangeStart, TIME_FORMATTER);
         LocalDateTime end = LocalDateTime.parse(rangeEnd, TIME_FORMATTER);

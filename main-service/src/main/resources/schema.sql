@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS events (
 --
     initiator BIGINT REFERENCES users(id),
     createOn TIMESTAMP NOT NULL,
-    publishedOn TIMESTAMP NOT NULL,
+    publishedOn TIMESTAMP,
     state VARCHAR(64)
 );
 

@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.practicum.ewm.user.AdminUserRepository;
+import ru.practicum.ewm.user.repository.AdminUserRepository;
 import ru.practicum.ewm.user.dto.UserDto;
 import ru.practicum.ewm.user.mapper.UserMapper;
 import ru.practicum.ewm.user.model.User;
