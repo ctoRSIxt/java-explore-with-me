@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.compilation.dto.CompilationDto;
+import ru.practicum.ewm.compilation.service.PublicCompilationService;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
@@ -26,7 +27,7 @@ public class PublicCompilationController {
 
 
     @GetMapping("/{compId}")
-    public CompilationDto findById(@PathVariable long compId) {
+    public CompilationDto findById(@PathVariable Long compId) {
         return publicCompilationService.findById(compId);
     }
 }
