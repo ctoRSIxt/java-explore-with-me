@@ -1,6 +1,5 @@
 package ru.practicum.ewm.client;
 
-import org.apache.http.impl.bootstrap.HttpServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
