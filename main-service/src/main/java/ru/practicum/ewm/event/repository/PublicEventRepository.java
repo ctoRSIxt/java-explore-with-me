@@ -22,8 +22,8 @@ public interface PublicEventRepository extends JpaRepository<Event, Long> {
             "or (:onlyAvailable = false and 1 = 1))) " +
             "and (:text is null or ((lower(e.description) like lower(:text)) " +
             "or (lower(e.annotation) like lower(:text)))) " +
-            "and (:rangeStart is null or e.eventDate >= :rangeStart) " +
-            "and (:rangeEnd is null or e.eventDate <= :rangeEnd) ")
+            "and (cast(:rangeStart as date) is null or e.eventDate >= :rangeStart) " +
+            "and (cast(:rangeEnd as date) is null or e.eventDate <= :rangeEnd) ")
     Page<Event>  findByParamsPublic(@Param("text") String text,
                  @Param("categories") List<Long> categories,
                  @Param("paid") Boolean paid,
