@@ -101,7 +101,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
                         "Event with id=" + eventId + " was not found"));
 
         if (!event.getInitiator().getId().equals(userId)) {
-            new NotFoundException("The required object was not found.",
+            throw new NotFoundException("The required object was not found.",
                     "Event with id=" + eventId + " and created by" +
                             "user with id=" + userId + " was not found");
         }
