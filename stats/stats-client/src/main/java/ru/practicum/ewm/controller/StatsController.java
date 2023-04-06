@@ -24,9 +24,9 @@ public class StatsController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/stats")
     public ResponseEntity<Object> find(@RequestParam LocalDateTime start,
-                                   @RequestParam LocalDateTime end,
-                                   @RequestParam(required = false) List<String> uris,
-                                   @RequestParam(defaultValue = "false") boolean unique) {
+                                       @RequestParam LocalDateTime end,
+                                       @RequestParam(required = false) List<String> uris,
+                                       @RequestParam(defaultValue = "false") boolean unique) {
         return statsClient.find(start, end, uris, unique);
     }
 }

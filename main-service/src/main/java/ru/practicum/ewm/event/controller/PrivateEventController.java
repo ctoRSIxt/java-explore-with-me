@@ -30,7 +30,7 @@ public class PrivateEventController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public EventFullDto create(@PathVariable Long userId,
-                                @Valid @RequestBody NewEventDto newEventDto) {
+                               @Valid @RequestBody NewEventDto newEventDto) {
         return privateEventService.create(userId, newEventDto);
     }
 

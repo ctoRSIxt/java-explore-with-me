@@ -13,7 +13,7 @@ public class CompilationMapper {
                 compilation.getTitle(),
                 compilation.getPinned(),
                 compilation.getEvents().stream()
-                                .map(EventMapper::toEventShortDto)
-                                .collect(Collectors.toList()));
+                        .map(EventMapper::toEventShortDto)
+                        .collect(Collectors.toList()));
     }
 }

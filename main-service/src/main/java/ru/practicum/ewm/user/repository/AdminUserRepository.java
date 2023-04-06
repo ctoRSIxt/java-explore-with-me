@@ -12,5 +12,6 @@ public interface AdminUserRepository extends JpaRepository<User, Long> {
     Page<User> findAllByIdIn(List<Long> ids, Pageable pageable);
 
     Optional<User> findAllByEmail(String email);
+
     Optional<User> findAllByName(String name);
 }

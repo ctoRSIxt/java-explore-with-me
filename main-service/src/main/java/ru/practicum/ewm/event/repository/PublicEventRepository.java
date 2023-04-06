@@ -24,13 +24,13 @@ public interface PublicEventRepository extends JpaRepository<Event, Long> {
             "or (lower(e.annotation) like lower(:text)))) " +
             "and (cast(:rangeStart as date) is null or e.eventDate >= :rangeStart) " +
             "and (cast(:rangeEnd as date) is null or e.eventDate <= :rangeEnd) ")
-    Page<Event>  findByParamsPublic(@Param("text") String text,
-                 @Param("categories") List<Long> categories,
-                 @Param("paid") Boolean paid,
-                 @Param("rangeStart") LocalDateTime rangeStart,
-                 @Param("rangeEnd") LocalDateTime rangeEnd,
-                 @Param("onlyAvailable") Boolean onlyAvailable,
-                 Pageable pageable);
+    Page<Event> findByParamsPublic(@Param("text") String text,
+                                   @Param("categories") List<Long> categories,
+                                   @Param("paid") Boolean paid,
+                                   @Param("rangeStart") LocalDateTime rangeStart,
+                                   @Param("rangeEnd") LocalDateTime rangeEnd,
+                                   @Param("onlyAvailable") Boolean onlyAvailable,
+                                   Pageable pageable);
 
     Optional<Event> findByIdAndState(Long id, State state);
 }

@@ -24,13 +24,13 @@ public class PublicCompilationServiceImpl implements PublicCompilationService {
 
         if (pinned != null) {
             compilations = compilationRepository.findAllByPinned(pinned,
-                    PageRequest.of(from / size, size, Sort.by("id").descending()))
+                            PageRequest.of(from / size, size, Sort.by("id").descending()))
                     .stream()
                     .map(CompilationMapper::toCompilationDto)
                     .collect(Collectors.toList());
         } else {
             compilations = compilationRepository.findAll(
-                    PageRequest.of(from / size, size, Sort.by("id").descending()))
+                            PageRequest.of(from / size, size, Sort.by("id").descending()))
                     .stream()
                     .map(CompilationMapper::toCompilationDto)
                     .collect(Collectors.toList());

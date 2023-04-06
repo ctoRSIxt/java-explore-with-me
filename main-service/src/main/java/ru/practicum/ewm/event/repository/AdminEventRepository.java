@@ -18,9 +18,9 @@ public interface AdminEventRepository extends JpaRepository<Event, Long> {
             "and e.category.id in :categories " +
             "and e.eventDate between :rangeStart and :rangeEnd")
     Page<Event> findByParamsAdmin(@Param("users") List<Long> users,
-                             @Param("states") List<State> states,
-                             @Param("categories") List<Long> categories,
-                             @Param("rangeStart") LocalDateTime rangeStart,
-                             @Param("rangeEnd") LocalDateTime rangeEnd,
-                             Pageable pageable);
+                                  @Param("states") List<State> states,
+                                  @Param("categories") List<Long> categories,
+                                  @Param("rangeStart") LocalDateTime rangeStart,
+                                  @Param("rangeEnd") LocalDateTime rangeEnd,
+                                  Pageable pageable);
 }

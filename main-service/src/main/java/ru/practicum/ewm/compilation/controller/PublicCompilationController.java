@@ -22,8 +22,8 @@ public class PublicCompilationController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<CompilationDto> find(@RequestParam(required = false) Boolean pinned,
-                                                @RequestParam(defaultValue = "0") @Min(0) Integer from,
-                                                @RequestParam(defaultValue = "10") @Positive Integer size) {
+                                     @RequestParam(defaultValue = "0") @Min(0) Integer from,
+                                     @RequestParam(defaultValue = "10") @Positive Integer size) {
         return publicCompilationService.find(pinned, from, size);
     }
 
