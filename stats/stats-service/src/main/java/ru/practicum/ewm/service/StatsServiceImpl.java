@@ -32,10 +32,18 @@ public class StatsServiceImpl implements StatsService {
                                    boolean unique) {
 
         List<ViewStats> viewStatsList;
-        if (unique) {
-            viewStatsList = statsRepository.findUniqueHits(uris, start, end);
+        if (uris != null) {
+            if (unique) {
+                viewStatsList = statsRepository.findUniqueHits(uris, start, end);
+            } else {
+                viewStatsList = statsRepository.findHits(uris, start, end);
+            }
         } else {
-            viewStatsList = statsRepository.findHits(uris, start, end);
+            if (unique) {
+                viewStatsList = statsRepository.findUniqueHitsUriNull(start, end);
+            } else {
+                viewStatsList = statsRepository.findHitsUriNull(start, end);
+            }
         }
 
         return viewStatsList.stream()
