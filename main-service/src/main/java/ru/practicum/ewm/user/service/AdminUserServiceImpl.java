@@ -1,10 +1,12 @@
 package ru.practicum.ewm.user.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ru.practicum.ewm.exception.ConditionsNotMetException;
 import ru.practicum.ewm.user.repository.AdminUserRepository;
 import ru.practicum.ewm.user.dto.UserDto;
 import ru.practicum.ewm.user.mapper.UserMapper;
@@ -36,6 +38,18 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public UserDto create(UserDto user) {
+        if (userRepository.findAllByEmail(user.getEmail()).isPresent()) {
+            throw new ConditionsNotMetException(
+                    "For the requested operation the conditions are not met.",
+                    "Email " + user.getEmail() + " is not unique");
+        }
+
+        if (userRepository.findAllByName(user.getName()).isPresent()) {
+            throw new ConditionsNotMetException(
+                    "For the requested operation the conditions are not met.",
+                    "Name " + user.getName() + " is not unique");
+        }
+
         return UserMapper.toUserDto(userRepository.save(UserMapper.toUser(user)));
     }
 

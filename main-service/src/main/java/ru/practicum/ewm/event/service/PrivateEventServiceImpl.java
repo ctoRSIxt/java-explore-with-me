@@ -2,6 +2,7 @@ package ru.practicum.ewm.event.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -52,6 +53,12 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         event.setAnnotation(newEventDto.getAnnotation());
         event.setDescription(newEventDto.getDescription());
         event.setLocation(newEventDto.getLocation());
+
+        if (!newEventDto.getEventDate().isAfter(LocalDateTime.now().plusHours(2))) {
+            throw new ConditionsNotMetException("Incorrectly made request.",
+                    "Event date and time should be at least 2 hours from now");
+        }
+
         event.setEventDate(newEventDto.getEventDate());
         event.setPaid(newEventDto.getPaid());
 
@@ -135,6 +142,12 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         }
 
         if (update.getEventDate() != null) {
+
+            if (update.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+                throw new ConditionsNotMetException("Incorrectly made request.",
+                        "Event date and time should be at least 2 hours from now");
+            }
+
             event.setEventDate(update.getEventDate());
         }
 
@@ -184,10 +197,12 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     public EventRequestStatusUpdateResult updateRequestStatus(Long userId, Long eventId,
                                                               EventRequestStatusUpdateRequest requestStatusUpdateRequest) {
         Event event = findEvent(userId, eventId);
+
         if (event.getConfirmedRequests() >= event.getParticipantLimit()) {
             throw new ConditionsNotMetException("For the requested operation the conditions are not met.",
                     "The participant limit has been reached");
         }
+
 
         List<RequestDto> confirmedRequests = new ArrayList<>();
         List<RequestDto> rejectedRequests = new ArrayList<>();
@@ -228,6 +243,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
             }
         }
 
+        eventRepository.save(event);
         return new EventRequestStatusUpdateResult(confirmedRequests, rejectedRequests);
     }
 }

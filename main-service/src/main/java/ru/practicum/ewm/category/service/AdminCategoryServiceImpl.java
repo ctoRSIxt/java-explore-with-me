@@ -8,6 +8,8 @@ import ru.practicum.ewm.category.mapper.CategoryMapper;
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.category.repository.CategoryRepository;
 import ru.practicum.ewm.event.repository.EventRepository;
+import ru.practicum.ewm.exception.ConditionsNotMetException;
+import ru.practicum.ewm.exception.ConflictRequestException;
 import ru.practicum.ewm.exception.CustomValidationException;
 import ru.practicum.ewm.exception.NotFoundException;
 
@@ -34,7 +36,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
                         "Category with id=" + catId + " was not found"));
 
         if (!eventRepository.findAllByCategoryId(catId).isEmpty()) {
-            throw new CustomValidationException("Incorrectly made request.",
+            throw new ConditionsNotMetException("Incorrectly made request.",
                     "Category " + category.getName() + " has connected events and " +
                             "cannot be deleted");
         }
@@ -56,7 +58,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
 
     private void validateCategoryIsUnique(String name) {
         if (categoryRepository.findByName(name).isPresent()) {
-            throw new CustomValidationException("Incorrectly made request.",
+            throw new ConditionsNotMetException("Incorrectly made request.",
                     "Category name " + name + " is not unique (already present)");
         }
     }

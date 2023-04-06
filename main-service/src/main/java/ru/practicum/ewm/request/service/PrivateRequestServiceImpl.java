@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.practicum.ewm.event.enums.State;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.event.repository.EventRepository;
+import ru.practicum.ewm.exception.ConditionsNotMetException;
 import ru.practicum.ewm.exception.CustomValidationException;
 import ru.practicum.ewm.exception.NotFoundException;
 import ru.practicum.ewm.request.dto.RequestDto;
@@ -33,23 +34,23 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
                         "Event with id=" + eventId + " was not found"));
 
         if (!requestRepository.findAllByEventIdAndRequesterId(eventId, userId).isEmpty()) {
-            throw new CustomValidationException("Incorrectly made request.",
+            throw new ConditionsNotMetException("Incorrectly made request.",
                     "Request from user with id=" + userId + " for event with id=" + eventId
                             + " already exists");
         }
 
         if (event.getInitiator().getId().equals(userId)) {
-            throw new CustomValidationException("Incorrectly made request.",
+            throw new ConditionsNotMetException("Incorrectly made request.",
                     "Initiator cannot request for its own event");
         }
 
         if (!event.getState().equals(State.PUBLISHED)) {
-            throw new CustomValidationException("Incorrectly made request.",
+            throw new ConditionsNotMetException("Incorrectly made request.",
                     "Event with id=" + eventId + " is not published");
         }
 
         if (event.getParticipantLimit().equals(event.getConfirmedRequests())) {
-            throw new CustomValidationException("Incorrectly made request.",
+            throw new ConditionsNotMetException("Incorrectly made request.",
                     "Event reached the participation limit");
         }
 
@@ -62,10 +63,19 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
         request.setRequester(user);
         request.setEvent(event);
 
-        if (!event.getRequestModeration()) {
-            request.setStatus(RequestStatus.CONFIRMED);
-            event.setConfirmedRequests(event.getConfirmedRequests() + 1);
-            eventRepository.save(event);
+        if (event.getParticipantLimit() == 0 ||
+                (event.getParticipantLimit() > event.getConfirmedRequests())) {
+            if (!event.getRequestModeration()) {
+                request.setStatus(RequestStatus.CONFIRMED);
+                event.setConfirmedRequests(event.getConfirmedRequests() + 1);
+                eventRepository.save(event);
+            } else {
+                request.setStatus(RequestStatus.PENDING);
+            }
+        } else {
+            throw new ConditionsNotMetException(
+                    "For the requested operation the conditions are not met.",
+                    "All places are taken");
         }
 
         return RequestMapper.toRequestDto(requestRepository.save(request));
