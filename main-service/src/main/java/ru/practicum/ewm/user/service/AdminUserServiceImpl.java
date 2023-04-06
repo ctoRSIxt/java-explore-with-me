@@ -1,16 +1,15 @@
 package ru.practicum.ewm.user.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewm.exception.ConditionsNotMetException;
-import ru.practicum.ewm.user.repository.AdminUserRepository;
 import ru.practicum.ewm.user.dto.UserDto;
 import ru.practicum.ewm.user.mapper.UserMapper;
 import ru.practicum.ewm.user.model.User;
+import ru.practicum.ewm.user.repository.AdminUserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

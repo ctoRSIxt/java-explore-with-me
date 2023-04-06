@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.event.enums.StateAction;
 import ru.practicum.ewm.event.location.Location;
-import ru.practicum.ewm.event.validators.AtLeast2Hours;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 

@@ -9,8 +9,6 @@ import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.category.repository.CategoryRepository;
 import ru.practicum.ewm.event.repository.EventRepository;
 import ru.practicum.ewm.exception.ConditionsNotMetException;
-import ru.practicum.ewm.exception.ConflictRequestException;
-import ru.practicum.ewm.exception.CustomValidationException;
 import ru.practicum.ewm.exception.NotFoundException;
 
 @Service
