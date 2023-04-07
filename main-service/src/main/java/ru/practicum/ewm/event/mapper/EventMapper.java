@@ -15,12 +15,12 @@ public class EventMapper {
                 event.getLocation(),
                 event.getEventDate(),
                 event.getPaid(),
-                CategoryMapper.toCategoryDto(event.getCategory()),
+                EventFullDto.toCategoryDto(event.getCategory()),
                 event.getRequestModeration(),
                 event.getParticipantLimit(),
                 event.getConfirmedRequests(),
                 event.getViews(),
-                UserMapper.toUserShortDto(event.getInitiator()),
+                EventFullDto.toUserShortDto(event.getInitiator()),
                 event.getCreatedOn(),
                 event.getPublishedOn(),
                 event.getState());
@@ -33,7 +33,7 @@ public class EventMapper {
                 event.getDescription(),
                 event.getEventDate(),
                 event.getPaid(),
-                CategoryMapper.toCategoryDto(event.getCategory()),
+                EventShortDto.toCategoryDto(event.getCategory()),
                 event.getConfirmedRequests(),
                 event.getViews(),
                 UserMapper.toUserShortDto(event.getInitiator()));

@@ -203,8 +203,8 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         }
 
 
-        List<RequestDto> confirmedRequests = new ArrayList<>();
-        List<RequestDto> rejectedRequests = new ArrayList<>();
+        List<Request> confirmedRequests = new ArrayList<>();
+        List<Request> rejectedRequests = new ArrayList<>();
 
         List<Request> requestList = requestRepository
                 .findAllByIdIn(requestStatusUpdateRequest.getRequestIds());
@@ -236,13 +236,17 @@ public class PrivateEventServiceImpl implements PrivateEventService {
             }
 
             if (request.getStatus().equals((RequestStatus.CONFIRMED))) {
-                confirmedRequests.add(RequestMapper.toRequestDto(request));
+                confirmedRequests.add(request);
             } else {
-                rejectedRequests.add(RequestMapper.toRequestDto(request));
+                rejectedRequests.add(request);
             }
         }
 
         eventRepository.save(event);
-        return new EventRequestStatusUpdateResult(confirmedRequests, rejectedRequests);
+        return new EventRequestStatusUpdateResult(confirmedRequests.stream()
+                .map(EventRequestStatusUpdateResult::toInnerRequestDto)
+                .collect(Collectors.toList()), rejectedRequests.stream()
+                .map(EventRequestStatusUpdateResult::toInnerRequestDto)
+                .collect(Collectors.toList()));
     }
 }

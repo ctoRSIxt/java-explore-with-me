@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.category.dto.CategoryDto;
+import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.user.dto.UserShortDto;
 
 import java.time.LocalDateTime;
@@ -25,4 +26,16 @@ public class EventShortDto {
     private Integer confirmedRequests = 0;
     private Long views = 0L;
     private UserShortDto initiator;
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CategoryDto {
+        private Long id;
+        private String name;
+    }
+
+    public static CategoryDto toCategoryDto(Category category) {
+        return new CategoryDto(category.getId(), category.getName());
+    }
 }
