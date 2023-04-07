@@ -2,6 +2,7 @@ package ru.practicum.ewm.compilation.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.compilation.dto.CompilationDto;
 import ru.practicum.ewm.compilation.dto.NewCompilationDto;
 import ru.practicum.ewm.compilation.dto.UpdateCompilationDto;
@@ -15,12 +16,14 @@ import ru.practicum.ewm.exception.NotFoundException;
 import java.util.HashSet;
 import java.util.List;
 
+@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class AdminCompilationServiceImpl implements AdminCompilationService {
     private final CompilationRepository compilationRepository;
     private final EventRepository eventRepository;
 
+    @Transactional
     @Override
     public CompilationDto create(NewCompilationDto newCompilationDto) {
 
@@ -37,6 +40,7 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
         return CompilationMapper.toCompilationDto(compilationRepository.save(compilation));
     }
 
+    @Transactional
     @Override
     public CompilationDto update(Long compId, UpdateCompilationDto newCompilationDto) {
         Compilation compilation = findCompilation(compId);
@@ -57,6 +61,7 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
         return CompilationMapper.toCompilationDto(compilationRepository.save(compilation));
     }
 
+    @Transactional
     @Override
     public void delete(Long compId) {
         findCompilation(compId);

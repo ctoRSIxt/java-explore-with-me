@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.compilation.dto.CompilationDto;
 import ru.practicum.ewm.compilation.mapper.CompilationMapper;
 import ru.practicum.ewm.compilation.repository.CompilationRepository;
@@ -12,6 +13,7 @@ import ru.practicum.ewm.exception.NotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class PublicCompilationServiceImpl implements PublicCompilationService {

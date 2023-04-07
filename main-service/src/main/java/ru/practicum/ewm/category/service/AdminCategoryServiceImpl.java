@@ -2,6 +2,7 @@ package ru.practicum.ewm.category.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.category.dto.NewCategoryDto;
 import ru.practicum.ewm.category.mapper.CategoryMapper;
@@ -11,12 +12,14 @@ import ru.practicum.ewm.event.repository.EventRepository;
 import ru.practicum.ewm.exception.ConditionsNotMetException;
 import ru.practicum.ewm.exception.NotFoundException;
 
+@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class AdminCategoryServiceImpl implements AdminCategoryService {
     private final CategoryRepository categoryRepository;
     private final EventRepository eventRepository;
 
+    @Transactional
     @Override
     public CategoryDto create(NewCategoryDto newCategoryDto) {
         validateCategoryIsUnique(newCategoryDto.getName());
@@ -26,6 +29,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
 
     }
 
+    @Transactional
     @Override
     public void delete(Long catId) {
 
@@ -42,6 +46,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
         categoryRepository.deleteById(catId);
     }
 
+    @Transactional
     @Override
     public CategoryDto update(Long catId, NewCategoryDto newCategoryDto) {
         validateCategoryIsUnique(newCategoryDto.getName());

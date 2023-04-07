@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.category.repository.CategoryRepository;
 import ru.practicum.ewm.event.dto.EventFullDto;
@@ -23,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class AdminEventServiceImpl implements AdminEventService {
@@ -31,6 +33,7 @@ public class AdminEventServiceImpl implements AdminEventService {
     private final AdminEventRepository eventRepository;
     private final CategoryRepository categoryRepository;
 
+    @Transactional
     @Override
     public EventFullDto updateEvent(Long eventId, UpdateEventAdminRequest update) {
 

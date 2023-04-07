@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.exception.ConditionsNotMetException;
 import ru.practicum.ewm.user.dto.UserDto;
 import ru.practicum.ewm.user.mapper.UserMapper;
@@ -14,6 +15,7 @@ import ru.practicum.ewm.user.repository.AdminUserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class AdminUserServiceImpl implements AdminUserService {
@@ -35,6 +37,7 @@ public class AdminUserServiceImpl implements AdminUserService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public UserDto create(UserDto user) {
         if (userRepository.findAllByEmail(user.getEmail()).isPresent()) {
@@ -52,6 +55,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         return UserMapper.toUserDto(userRepository.save(UserMapper.toUser(user)));
     }
 
+    @Transactional
     @Override
     public void delete(Long userId) {
         userRepository.deleteById(userId);

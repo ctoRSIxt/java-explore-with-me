@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.category.repository.CategoryRepository;
 import ru.practicum.ewm.event.dto.EventFullDto;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class PrivateEventServiceImpl implements PrivateEventService {
@@ -43,6 +45,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     private final PrivateUserRepository privateUserRepository;
     private final RequestRepository requestRepository;
 
+    @Transactional
     @Override
     public EventFullDto create(Long userId, NewEventDto newEventDto) {
 
@@ -113,6 +116,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         return EventMapper.toEventFullDto(findEvent(userId, eventId));
     }
 
+    @Transactional
     @Override
     public EventFullDto update(Long userId, Long eventId,
                                UpdateEventUserRequest update) {
@@ -192,6 +196,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public EventRequestStatusUpdateResult updateRequestStatus(Long userId, Long eventId,
                                                               EventRequestStatusUpdateRequest requestStatusUpdateRequest) {
