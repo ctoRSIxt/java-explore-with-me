@@ -24,8 +24,8 @@ public class PrivateCommentController {
     @PostMapping("/events/{eventId}/comment")
     public CommentDto create(@PathVariable Long userId,
                              @PathVariable Long eventId,
-                             @Valid @RequestBody NewCommentDto NewCommentDto) {
-        return privateCommentService.create(userId, eventId, NewCommentDto);
+                             @Valid @RequestBody NewCommentDto newCommentDto) {
+        return privateCommentService.create(userId, eventId, newCommentDto);
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -33,9 +33,9 @@ public class PrivateCommentController {
     public CommentDto update(@PathVariable Long userId,
                                @PathVariable Long eventId,
                                @PathVariable Long commentId,
-                               @Valid @RequestBody NewCommentDto NewCommentDto) {
+                               @Valid @RequestBody NewCommentDto newCommentDto) {
 
-        return privateCommentService.update(userId, eventId, commentId, NewCommentDto);
+        return privateCommentService.update(userId, eventId, commentId, newCommentDto);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -49,8 +49,12 @@ public class PrivateCommentController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/events/{eventId}/comment")
     public List<CommentDto> findAllByEvent(@PathVariable Long userId,
-                                           @PathVariable Long eventId) {
-        return privateCommentService.findAllByEvent(userId, eventId);
+                                           @PathVariable Long eventId,
+                                           @RequestParam(defaultValue = "0")
+                                           @Min(0) Integer from,
+                                           @RequestParam(defaultValue = "10")
+                                           @Min(1) Integer size) {
+        return privateCommentService.findAllByEvent(userId, eventId, from, size);
     }
 
     @ResponseStatus(HttpStatus.OK)

@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface PrivateCommentService {
 
-    CommentDto create(Long userId, Long eventId, NewCommentDto NewCommentDto);
+    CommentDto create(Long userId, Long eventId, NewCommentDto newCommentDto);
 
-    CommentDto update(Long userId, Long eventId, Long commentId, NewCommentDto NewCommentDto);
+    CommentDto update(Long userId, Long eventId, Long commentId, NewCommentDto newCommentDto);
 
     void delete(Long userId, Long eventId, Long commentId);
 
-    List<CommentDto> findAllByEvent(Long userId, Long eventId);
+    List<CommentDto> findAllByEvent(Long userId, Long eventId, Integer from, Integer size);
 
     List<CommentDto> findAll(Long userId, Integer from, Integer size);
 
