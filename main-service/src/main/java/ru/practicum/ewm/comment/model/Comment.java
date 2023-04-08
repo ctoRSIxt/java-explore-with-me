@@ -4,7 +4,6 @@ package ru.practicum.ewm.comment.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.ewm.comment.enums.CommentState;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.user.model.User;
 
@@ -22,7 +21,7 @@ public class Comment {
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 7000)
     private String text;
 
     @ManyToOne(optional = false)
