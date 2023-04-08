@@ -7,8 +7,8 @@ import ru.practicum.ewm.comment.model.Comment;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    Page<Comment> findAllByUserIdAndEventId(Long userId, Long eventId, Pageable pageable);
+    Page<Comment> findAllByAuthorIdAndEventId(Long userId, Long eventId, Pageable pageable);
 
-    Page<Comment> findAllByUserId(Long userId, Pageable pageable);
+    Page<Comment> findAllByAuthorId(Long userId, Pageable pageable);
 
 }

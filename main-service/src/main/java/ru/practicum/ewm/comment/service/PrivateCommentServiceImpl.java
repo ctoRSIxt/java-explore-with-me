@@ -10,9 +10,7 @@ import ru.practicum.ewm.comment.dto.NewCommentDto;
 import ru.practicum.ewm.comment.model.Comment;
 import ru.practicum.ewm.comment.repository.CommentRepository;
 import ru.practicum.ewm.event.model.Event;
-import ru.practicum.ewm.event.repository.AdminEventRepository;
 import ru.practicum.ewm.event.repository.PrivateEventRepository;
-import ru.practicum.ewm.event.repository.PublicEventRepository;
 import ru.practicum.ewm.exception.ConditionsNotMetException;
 import ru.practicum.ewm.exception.NotFoundException;
 import ru.practicum.ewm.user.model.User;
@@ -75,7 +73,7 @@ public class PrivateCommentServiceImpl implements PrivateCommentService{
 
     @Override
     public List<CommentDto> findAllByEvent(Long userId, Long eventId, Integer from, Integer size) {
-        return commentRepository.findAllByUserIdAndEventId(userId, eventId,
+        return commentRepository.findAllByAuthorIdAndEventId(userId, eventId,
                 PageRequest.of(from / size, size, Sort.by("createdOn").descending()))
                 .stream()
                 .map(CommentDto::toCommentDto)
@@ -85,7 +83,7 @@ public class PrivateCommentServiceImpl implements PrivateCommentService{
     @Override
     public List<CommentDto> findAll(Long userId, Integer from, Integer size) {
 
-        return commentRepository.findAllByUserId(userId,
+        return commentRepository.findAllByAuthorId(userId,
                         PageRequest.of(from / size, size, Sort.by("createdOn").descending()))
                 .stream()
                 .map(CommentDto::toCommentDto)
