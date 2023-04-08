@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.ewm.comment.dto.CommentDto;
+import ru.practicum.ewm.comment.dto.NewCommentDto;
+import ru.practicum.ewm.comment.service.PrivateCommentService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -32,7 +35,7 @@ public class PrivateCommentController {
                                @PathVariable Long commentId,
                                @Valid @RequestBody NewCommentDto NewCommentDto) {
 
-        return privateCommentService.update(userId, eventId, commentId, newEventDto);
+        return privateCommentService.update(userId, eventId, commentId, NewCommentDto);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
