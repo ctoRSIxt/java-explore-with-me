@@ -25,18 +25,16 @@ public class Comment {
     @Column(nullable = false)
     private String text;
 
-    @Column(nullable = false)
-    private LocalDateTime created;
-
     @ManyToOne(optional = false)
     private User author;
 
     @ManyToOne(optional = false)
     private Event event;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private CommentState state = CommentState.NOT_EDIT;
+    private LocalDateTime createdOn;
+
+    private LocalDateTime editedOn;
 }
 
 
