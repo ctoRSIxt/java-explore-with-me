@@ -10,7 +10,6 @@ import ru.practicum.ewm.model.ViewStatsMapper;
 import ru.practicum.ewm.repository.StatsRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,15 +31,18 @@ public class StatsServiceImpl implements StatsService {
                                    List<String> uris,
                                    boolean unique) {
 
-        List<ViewStats> viewStatsList = new ArrayList<>();
-
+        List<ViewStats> viewStatsList;
         if (uris != null) {
-            for (String uri : uris) {
-                if (unique) {
-                    viewStatsList.add(statsRepository.findUniqueHits(uri, start, end));
-                } else {
-                    viewStatsList.add(statsRepository.findHits(uri, start, end));
-                }
+            if (unique) {
+                viewStatsList = statsRepository.findUniqueHits(uris, start, end);
+            } else {
+                viewStatsList = statsRepository.findHits(uris, start, end);
+            }
+        } else {
+            if (unique) {
+                viewStatsList = statsRepository.findUniqueHitsUriNull(start, end);
+            } else {
+                viewStatsList = statsRepository.findHitsUriNull(start, end);
             }
         }
 

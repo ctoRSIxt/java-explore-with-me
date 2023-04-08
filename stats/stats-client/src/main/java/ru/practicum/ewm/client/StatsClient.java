@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.ewm.dto.EndpointHitDto;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -28,6 +29,16 @@ public class StatsClient extends BaseClient {
                         .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                         .build()
         );
+    }
+
+
+    public ResponseEntity<Object> saveEndpointHit(HttpServletRequest httpServletRequest) {
+        EndpointHitDto endpointHitDto = new EndpointHitDto();
+        endpointHitDto.setIp(httpServletRequest.getRemoteAddr());
+        endpointHitDto.setUri(httpServletRequest.getRequestURI());
+        endpointHitDto.setApp(httpServletRequest.getServerName());
+        endpointHitDto.setTimestamp(LocalDateTime.now());
+        return create(endpointHitDto);
     }
 
     public ResponseEntity<Object> create(EndpointHitDto endpointHitDto) {
