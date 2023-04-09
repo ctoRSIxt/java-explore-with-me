@@ -10,6 +10,7 @@ import ru.practicum.ewm.exception.CustomValidationException;
 import ru.practicum.ewm.exception.NotFoundException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -25,6 +26,8 @@ import java.util.stream.Collectors;
 public class PublicCommentServiceImpl implements PublicCommentService {
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    @PersistenceContext
     private EntityManager entityManager;
     private final CommentRepository commentRepository;
 
