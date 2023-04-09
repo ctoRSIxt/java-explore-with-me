@@ -31,9 +31,9 @@ public class PrivateCommentController {
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/events/{eventId}/comment/{commentId}")
     public CommentDto update(@PathVariable Long userId,
-                               @PathVariable Long eventId,
-                               @PathVariable Long commentId,
-                               @Valid @RequestBody NewCommentDto newCommentDto) {
+                             @PathVariable Long eventId,
+                             @PathVariable Long commentId,
+                             @Valid @RequestBody NewCommentDto newCommentDto) {
 
         return privateCommentService.update(userId, eventId, commentId, newCommentDto);
     }

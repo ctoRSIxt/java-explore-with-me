@@ -33,28 +33,8 @@ public class CommentDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime editedOn;
 
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class UserShortDto {
-        private Long id;
-        private String name;
-    }
-
     public static UserShortDto toUserShortDto(User user) {
         return new UserShortDto(user.getId(), user.getName());
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class EventShortDto {
-        private Long id;
-        private String title;
-        private String annotation;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-        private LocalDateTime eventDate;
-        private UserShortDto initiator;
     }
 
     public static EventShortDto toEventShortDto(Event event) {
@@ -67,10 +47,30 @@ public class CommentDto {
 
     public static CommentDto toCommentDto(Comment comment) {
         return new CommentDto(comment.getId(),
-                              comment.getText(),
-                            toUserShortDto(comment.getAuthor()),
-                            toEventShortDto(comment.getEvent()),
-                            comment.getCreatedOn(),
-                            comment.getEditedOn());
+                comment.getText(),
+                toUserShortDto(comment.getAuthor()),
+                toEventShortDto(comment.getEvent()),
+                comment.getCreatedOn(),
+                comment.getEditedOn());
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UserShortDto {
+        private Long id;
+        private String name;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EventShortDto {
+        private Long id;
+        private String title;
+        private String annotation;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+        private LocalDateTime eventDate;
+        private UserShortDto initiator;
     }
 }

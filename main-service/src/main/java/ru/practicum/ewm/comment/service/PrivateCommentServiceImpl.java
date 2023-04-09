@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
-public class PrivateCommentServiceImpl implements PrivateCommentService{
+public class PrivateCommentServiceImpl implements PrivateCommentService {
 
     private final CommentRepository commentRepository;
     private final PrivateEventRepository eventRepository;
@@ -74,7 +74,7 @@ public class PrivateCommentServiceImpl implements PrivateCommentService{
     @Override
     public List<CommentDto> findAllByEvent(Long userId, Long eventId, Integer from, Integer size) {
         return commentRepository.findAllByAuthorIdAndEventId(userId, eventId,
-                PageRequest.of(from / size, size, Sort.by("createdOn").descending()))
+                        PageRequest.of(from / size, size, Sort.by("createdOn").descending()))
                 .stream()
                 .map(CommentDto::toCommentDto)
                 .collect(Collectors.toList());

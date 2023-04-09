@@ -26,15 +26,14 @@ import java.util.stream.Collectors;
 public class PublicCommentServiceImpl implements PublicCommentService {
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
+    private final CommentRepository commentRepository;
     @PersistenceContext
     private EntityManager entityManager;
-    private final CommentRepository commentRepository;
 
     @Override
     public List<CommentDto> find(String text, List<Long> authors, List<Long> events,
-                           String rangeStart, String rangeEnd, String sort,
-                           Integer from, Integer size) {
+                                 String rangeStart, String rangeEnd, String sort,
+                                 Integer from, Integer size) {
 
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -78,16 +77,16 @@ public class PublicCommentServiceImpl implements PublicCommentService {
                     criteriaQuery.select(commentRoot)
                             .where(predicates)
                             .orderBy(criteriaBuilder.asc(commentRoot.get("author").get("id")),
-                                     criteriaBuilder.desc(commentRoot.get("event").get("id")),
-                                     criteriaBuilder.desc(commentRoot.get("createdOn")));
+                                    criteriaBuilder.desc(commentRoot.get("event").get("id")),
+                                    criteriaBuilder.desc(commentRoot.get("createdOn")));
                     break;
 
                 case "EVENTS":
                     criteriaQuery.select(commentRoot)
                             .where(predicates)
                             .orderBy(criteriaBuilder.desc(commentRoot.get("event").get("id")),
-                                     criteriaBuilder.asc(commentRoot.get("author").get("id")),
-                                     criteriaBuilder.desc(commentRoot.get("createdOn")));
+                                    criteriaBuilder.asc(commentRoot.get("author").get("id")),
+                                    criteriaBuilder.desc(commentRoot.get("createdOn")));
                     break;
                 default:
                     throw new CustomValidationException("Incorrectly made request.",
@@ -97,8 +96,8 @@ public class PublicCommentServiceImpl implements PublicCommentService {
             criteriaQuery.select(commentRoot)
                     .where(predicates)
                     .orderBy(criteriaBuilder.desc(commentRoot.get("createdOn")),
-                             criteriaBuilder.desc(commentRoot.get("event").get("id")),
-                             criteriaBuilder.asc(commentRoot.get("author").get("id")));
+                            criteriaBuilder.desc(commentRoot.get("event").get("id")),
+                            criteriaBuilder.asc(commentRoot.get("author").get("id")));
         }
 
         return entityManager.createQuery(criteriaQuery)
