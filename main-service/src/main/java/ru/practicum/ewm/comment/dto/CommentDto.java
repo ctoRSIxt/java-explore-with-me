@@ -8,8 +8,6 @@ import ru.practicum.ewm.comment.model.Comment;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.user.model.User;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 
@@ -19,10 +17,8 @@ import java.time.LocalDateTime;
 public class CommentDto {
     private Long id;
 
-    @Column(nullable = false, length = 7000)
     private String text;
 
-    @ManyToOne(optional = false)
     private UserShortDto author;
 
     private EventShortDto event;
